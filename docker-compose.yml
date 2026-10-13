@@ -1,6 +1,19 @@
 version: '3.8'
 
 services:
+  api-gateway:
+    build: ./api-gateway
+    container_name: ecom_gateway_engine
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=postgres-db
+      - DB_USER=shield_admin
+      - DB_PASSWORD=vault_secret_password
+      - DB_NAME=shield_storefront
+    depends_on:
+      - postgres-db
+
   postgres-db:
     image: postgres:15-alpine
     container_name: ecom_postgres_engine
